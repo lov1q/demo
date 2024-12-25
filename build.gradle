@@ -1,0 +1,45 @@
+plugins {
+	id("org.jetbrains.kotlin.jvm") version "1.9.25"
+	id("org.jetbrains.kotlin.plugin.spring") version "1.9.25"
+	id("org.springframework.boot") version "3.4.1"
+	id("io.spring.dependency-management") version "1.1.7"
+}
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Зависимости для Spring Boot, Thymeleaf и Security
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")  // Для Thymeleaf
+	implementation("org.springframework.boot:spring-boot-starter-security")  // Для Spring Security
+	implementation("org.springframework.boot:spring-boot-starter-web")  // Для веб-приложений
+	implementation("org.springframework.boot:spring-boot-starter")  // Общий стартер для Spring Boot
+
+	// Kotlin зависимости
+	implementation("org.jetbrains.kotlin:kotlin-reflect")  // Для отражения в Kotlin
+
+	// Зависимости для тестирования
+	testImplementation("org.springframework.boot:spring-boot-starter-test")  // Для тестирования Spring Boot
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")  // Для тестирования Kotlin с JUnit 5
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")  // Для запуска тестов
+}
+
+kotlin {
+	compilerOptions {
+		freeCompilerArgs.addAll("-Xjsr305=strict")  // Для работы с null safety
+	}
+}
+
+tasks.named("test") {
+	useJUnitPlatform()  // Использование JUnit Platform для тестов
+}
